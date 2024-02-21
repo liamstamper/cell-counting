@@ -29,6 +29,24 @@
     font-size: 30px;
     justify-content: center;
 }
+.restart{
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .file-upload {
     border: 1px solid #ccc;

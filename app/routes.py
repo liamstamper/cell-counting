@@ -2,9 +2,12 @@
 from flask import render_template, request
 from . import app
 import imagej  
+from werkzeug.utils import secure_filename
+import os
 
 # Initialize ImageJ
-ij = imagej.init('sc.fiji:fiji')
+ij = imagej.init('sc.fiji:fiji:latest')
+
 
 @app.route('/')
 def home():
@@ -12,33 +15,56 @@ def home():
 
 @app.route('/upload', methods=['POST'])
 def upload():
-    # Handle the uploaded image and display results
-    image_file = request.files['image']
-    if image_file:
-        # Save the image to a temporary file or process it directly
-        image_path = 'path/to/temporary/file'
-        image_file.save(image_path)
+    
+    # Check if the post request has the file part
+    if 'image' not in request.files:
+        return 'No file part', 400
+    file = request.files['image']
+    if file.filename == '':
+        return 'No selected file', 400
+    if file:        
+        # Make the filename safe, remove unsupported characters
+        filename=secure_filename(file.filename)
+        # Save the file to the uploads folder
+        file_path = os.path.join('static', 'uploads', filename)
+        file.save(file_path)
+        # Process the image and return results
         
-        # Process the image and get the results
-        results = process_and_count(image_path)
-        return render_template('results.html', results=results)
-    return 'No image file provided', 400
+        #results = process_and_count(file_path)
+        results = 5
 
+        return render_template('result.html', results=results)
+    
 def process_and_count(image_path):
-    # Implement the image processing logic using pyimagej here
-    # Load the image
-    image = ij.io().open(image_path)
+    # Open the image.
+    image_plus = ij.io().open(image_path)
+    
 
-    # Convert to 8-bit
-    image = ij.op().convert().uint8(image)
+    # Use Gaussian blur to smooth the image.
+    blurred = ij.op().run("gauss", image_plus, 5.0)
+    
+    #Conver the image to greyscale
+    gray_image = ij.op().run("convert.toGray8", blurred)
 
-    # Threshold the image
-    thresholded = ij.op().threshold().otsu(image)
 
-    # Count the number of objects
-    num_objects = ij.op().image().watershed(thresholded)
+    # # Threshold the image.
+    otsu_threshold = ij.op().threshold().otsu(blurred)
+    binary_image = ij.op().image().threshold(otsu_threshold)
 
-    return num_objects
+    # #Perform watershed segmentation
+    segmented = ij.op().run("watershed", binary_image)
+
+    # # Feature extraction: get region properties.
+    region_props = ij.op().run("regionprops", segmented)
+    
+    # Analysis and quantification: count cells and measure areas.
+    particle_analysis = ij.op().run("analyzeParticles", image_plus)
+
+    return particle_analysis
+
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,3 +1,4 @@
+<!-- templates/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,11 +14,10 @@
                 Bone Marrow Cell Counter
             </div>
             <div class="content">
-                <label class="file-upload">
-                    <input type="file" accept="image/jpeg, image/png, image/gif" />
-                    <img src="/static/fileimage.png" class="fileimage" />
-                    Upload File
-                </label>
+                <form action="/upload" method="post" enctype="multipart/form-data">
+                    <input type="file" name="image" />
+                    <input type="submit" value="Upload" />
+                </form>
             </div>
         </div>
     </body>
