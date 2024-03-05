@@ -1,12 +1,11 @@
 # routes.py
 from flask import render_template, request
 from . import app
-import imagej  
 from werkzeug.utils import secure_filename
 import os
+import cv2
 
-# Initialize ImageJ
-ij = imagej.init('sc.fiji:fiji:latest')
+
 
 
 @app.route('/')
@@ -30,37 +29,45 @@ def upload():
         file.save(file_path)
         # Process the image and return results
         
-        #results = process_and_count(file_path)
-        results = 5
+        results = process_and_count(file_path)
+        #results = 5
 
         return render_template('result.html', results=results)
     
 def process_and_count(image_path):
-    # Open the image.
-    image_plus = ij.io().open(image_path)
+
+
+    # Read the image
+    image = cv2.imread(image_path)
+
+    # Convert the image to grayscale
+    gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+    # Apply Gaussian blur to reduce noise and improve thresholding
+    blur = cv2.GaussianBlur(gray_image, (5, 5), 0)
+
+     # Apply adaptive thresholding to get a binary image
+    thresh = cv2.adaptiveThreshold(blur, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 11, 2)
+
+    # Find contours from the binary image
+    contours, hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     
+    # Filter out very small contours that are likely not cells
+    filtered_contours = [cnt for cnt in contours if cv2.contourArea(cnt) > 50]
 
-    # Use Gaussian blur to smooth the image.
-    blurred = ij.op().run("gauss", image_plus, 5.0)
-    
-    #Conver the image to greyscale
-    gray_image = ij.op().run("convert.toGray8", blurred)
+    # Draw contours on the original image (optional)
+    # cv2.drawContours(image, contours, -1, (0, 255, 0), 2)
 
+    # Count the number of cells
+    cell_count = len(filtered_contours)
 
-    # # Threshold the image.
-    otsu_threshold = ij.op().threshold().otsu(blurred)
-    binary_image = ij.op().image().threshold(otsu_threshold)
+    return cell_count
 
-    # #Perform watershed segmentation
-    segmented = ij.op().run("watershed", binary_image)
+if __name__ == "__main__":
+    image_path = "cells_image.jpg"  # Path to your image
+    num_cells = process_and_count(image_path)
+    print("Number of cells in the image:", num_cells)
 
-    # # Feature extraction: get region properties.
-    region_props = ij.op().run("regionprops", segmented)
-    
-    # Analysis and quantification: count cells and measure areas.
-    particle_analysis = ij.op().run("analyzeParticles", image_plus)
-
-    return particle_analysis
 
 
 
