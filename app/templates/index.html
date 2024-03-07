@@ -4,21 +4,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/styles.css">
-    <title>Cell Counter</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src=”/static/js/script.js”></script>
+    <title>CellScope</title>
 
 </head>
 <body>
-        <div class="main-container">
-            <div class="header">
-                Bone Marrow Cell Counter
+    <!--header-->
+    <header class="header-container">
+        <h1><i class="fa-solid fa-globe"></i> <a href="#Get Started">CellScope</a> </h1>
+        <nav class="header-nav">
+            <a href="#About">About</a>
+            <a href="#Features">Features</a>
+        </nav>
+    </header>
+    <main>
+        <!--home-->
+        <section id="Get Started">
+            <div class="title">Welcome to CellScope</div>
+            <div class="subtitle">To begin please upload a file</div>
+            <div class="file-upload-container">
+                <button id="getFile" class="button">Get Started</button>
+                <span id="fileName" class="file-name"></span>
+                <input type="file" id="fileInput" class="hidden" />
+                <button id="submitBtn" class="button hidden">Submit</button>
             </div>
-            <div class="content">
-                <form action="/upload" method="post" enctype="multipart/form-data">
-                    <input type="file" name="image" />
-                    <input type="submit" value="Upload" />
-                </form>
-            </div>
-        </div>
-    </body>
+        </section>
+        <!--about-->
+        <section2 id="About">
+            <section class="about-section">
+                <div class="about-container">
+                    <h2 class="about-heading">About CellScope</h2>
+                    <p class="about-text">
+                        The CellScope application is designed to simplify and automate the process of cell counting from microscopic imagery. Utilizing advanced algorithms, it allows users to quickly upload images and receive accurate cell counts, significantly reducing manual counting error and effort. 
+                    </p>
+                    <p class="about-text">
+                        Continual improvements and updates are made to ensure the highest level of accuracy and user-friendliness. We welcome feedback and suggestions as we strive to make C-Count V1 the standard tool for cell counting in the scientific community.
+                    </p>
+                    <img class="demo1" src="/static/img/contoured_Screenshot 2024-02-20 at 1.56.56 PM (1).png" alt="placeholder" class="about-image" />                
+                </div>
+            </section>
+        </section2>
+        <!--features-->
+        <section2 id="Features">
+            <section class="features-section">
+                <div class="about-container">
+                    <h2 class="about-heading">Features</h2>
+                    <p class="about-text">
+                        The CellScope application is designed to simplify and automate the process of cell counting from microscopic imagery. Utilizing advanced algorithms, it allows users to quickly upload images and receive accurate cell counts, significantly reducing manual counting error and effort. 
+                    </p>
+                    <p class="about-text">
+                        Continual improvements and updates are made to ensure the highest level of accuracy and user-friendliness. We welcome feedback and suggestions as we strive to make C-Count V1 the standard tool for cell counting in the scientific community.
+                    </p>
+                    <img class="demo1-features" src="/static/img/contoured_Screenshot 2024-02-20 at 1.56.56 PM (1).png" alt="placeholder" class="about-image" />
+                    
+                </div>
+            </section>
+        </section2>   
+    </main>
+</body>
 </html>
+
+
+<!-- <div class="main-container">
+    <div class="header">
+        Bone Marrow Cell Counter
+    </div>
+    <div class="content">
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="image" />
+            <input type="submit" value="Upload" />
+        </form>
+    </div>
+</div> -->
