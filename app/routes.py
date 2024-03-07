@@ -30,7 +30,6 @@ def upload():
         # Process the image and return results
         
         results = process_and_count(file_path)
-        #results = 5
 
         return render_template('result.html', results=results)
     
