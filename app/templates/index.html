@@ -4,8 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/css/styles.css">
-    <script src=”/static/js/script.js”></script>
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <!--<link rel="icon" type="image/x-icon" href="">-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
     <title>CellScope</title>
 
 </head>
@@ -25,9 +27,13 @@
             <div class="subtitle">To begin please upload a file</div>
             <div class="file-upload-container">
                 <button id="getFile" class="button">Get Started</button>
-                <span id="fileName" class="file-name"></span>
-                <input type="file" id="fileInput" class="hidden" />
-                <button id="submitBtn" class="button hidden">Submit</button>
+                <form action="/upload" method="post" enctype="multipart/form-data">
+                    <input type="file" name="image" class="hidden" />
+                    <div class="file-upload-container">
+                        <button id="submitBtn" value="Upload" class="button hidden">Submit</button>
+                        <span id="fileName" class="file-name"></span>
+                    </div>
+                </form>
             </div>
         </section>
         <!--about-->
@@ -41,12 +47,12 @@
                     <p class="about-text">
                         Continual improvements and updates are made to ensure the highest level of accuracy and user-friendliness. We welcome feedback and suggestions as we strive to make C-Count V1 the standard tool for cell counting in the scientific community.
                     </p>
-                    <img class="demo1" src="/static/img/contoured_Screenshot 2024-02-20 at 1.56.56 PM (1).png" alt="placeholder" class="about-image" />                
+                    <img src="{{ url_for('static', filename='img/contoured_Screenshot 2024-02-20 at 1.56.56 PM (1).png') }}" alt="placeholder" class="demo1">               
                 </div>
             </section>
         </section2>
         <!--features-->
-        <section2 id="Features">
+        <section id="Features">
             <section class="features-section">
                 <div class="about-container">
                     <h2 class="about-heading">Features</h2>
@@ -56,24 +62,29 @@
                     <p class="about-text">
                         Continual improvements and updates are made to ensure the highest level of accuracy and user-friendliness. We welcome feedback and suggestions as we strive to make C-Count V1 the standard tool for cell counting in the scientific community.
                     </p>
-                    <img class="demo1-features" src="/static/img/contoured_Screenshot 2024-02-20 at 1.56.56 PM (1).png" alt="placeholder" class="about-image" />
+                    <img src="{{ url_for('static', filename='img/contoured_Screenshot 2024-02-20 at 1.56.56 PM (1).png') }}" alt="placeholder" class="demo1-features">
                     
                 </div>
             </section>
-        </section2>   
+        </section>   
     </main>
 </body>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </html>
 
 
-<!-- <div class="main-container">
-    <div class="header">
-        Bone Marrow Cell Counter
+<!-- 
+    Old file input code for refrence
+
+    <div class="main-container">
+        <div class="header">
+            Bone Marrow Cell Counter
+        </div>
+        <div class="content">
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <input type="file" name="image" />
+                <input type="submit" value="Upload" />
+            </form>
+        </div>
     </div>
-    <div class="content">
-        <form action="/upload" method="post" enctype="multipart/form-data">
-            <input type="file" name="image" />
-            <input type="submit" value="Upload" />
-        </form>
-    </div>
-</div> -->
+ -->

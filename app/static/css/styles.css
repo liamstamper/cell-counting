@@ -68,10 +68,8 @@ header {
   display: none;
 }
 .file-name {
-  margin-top: 5px;
-  margin-left: 50%; 
-  font-size: 20px;
-  color: #4B5563; 
+  font-size: 18px;
+  color: black; 
 }
 h1 a {
   text-decoration: none;
@@ -80,6 +78,10 @@ h1 a {
 
 section {
   min-height: 400px;
+}
+
+.file-upload-container {
+  text-align: center; 
 }
 
 
