@@ -33,7 +33,7 @@ header {
   transition: opacity 0.3s;
 }
 .header-nav a:hover {
-  opacity: 0.7;
+  opacity: 0.6;
 }
 .title{
   text-align: center;
@@ -84,67 +84,148 @@ section {
   text-align: center; 
 }
 
-
-/* about section */
-
-.about-section {
-  background-color: #f0f0f0; 
-  padding: 32px 20px; 
+.results-container {
+  text-align: center;
+  align-content: center;
+  margin-top: 100px;
+  padding: 20px; 
 }
 
-.about-container {
-  max-width: 1120px; 
+.results-text {
+  font-size: 22px;
+  font-weight: bold;
+  color: black; 
+}
+.start-over-link {
+  display: inline-block;
+  margin-top: 20px; 
+  text-decoration: none;
+  color: #2563eb;
+  font-size: 18px; 
+}
+
+.start-over-link:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+/* about and features sections */
+
+.about-section, .features-section{
+  padding: 10px 5%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.about-container, .features-container{
+  max-width: 1000px; 
   margin: 0 auto; 
   padding: 0 24px;
 }
 
-.about-heading {
-  font-size: 28px; 
+.about-heading, .features-heading{
+  font-size: 32px; 
   font-weight: bold; 
   color: #1a202c; 
-  margin-bottom: 16px; 
+  margin-bottom: 20px; 
+  font-family: serif;
+  font-weight: 700;
 }
 
-.about-text {
-  color: #4a5568; 
-  margin-top: 16px; 
-  line-height: 1.6; 
+.about-text, .features-text {
+  color: black; 
+  margin-top: 18px; 
+  line-height: 1.7; 
+  color: #333;
 }
 
-.demo1{
+.images-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.demo-images{
   width: 400px;
-  height: 400px;
+  height: 350px;
 }
 
 
-/* features section */
+/* media queries */
 
-.features-section {
-  background-color: #f8fafc; 
-  padding: 32px 20px; 
+/* Header styles adjustment for smaller screens */
+@media (max-width: 768px) {
+  .header-container h1 {
+    font-size: 1.5rem;
+    margin-left: 0.5rem;
+  }
+
+  .header-nav a {
+    font-size: 16px;
+    margin-right: 5px;
+    padding-right: 10px;
+  }
+
+  .header-nav {
+    margin-right: 0.5rem;
+  }
 }
 
-.features-container {
-  max-width: 1120px; 
-  margin: 0 auto; 
-  padding: 0 24px; 
+/* Title and subtitle adjustment for smaller screens */
+@media (max-width: 768px) {
+  .title {
+    font-size: 40px;
+    margin-top: 30px;
+  }
+
+  .subtitle {
+    font-size: 18px;
+    margin-top: 10px;
+  }
 }
 
-.features-heading {
-  font-size: 28px; 
-  font-weight: bold;
-  color: #1a202c; 
-  margin-bottom: 16px; 
+/* Button adjustment for smaller screens */
+@media (max-width: 768px) {
+  .button {
+    margin: 30px auto;
+    padding: 12px 20px;
+    font-size: medium;
+  }
 }
 
-.features-text {
-  color: #4a5568;
-  margin-top: 16px; 
-  line-height: 1.6; 
+/* File upload container adjustment for smaller screens */
+@media (max-width: 768px) {
+  .file-upload-container {
+    margin-top: 30px;
+  }
 }
 
-.demo1-features{
-  width: 400px;
-  height: 400px;
-  float: right;
+/* About and Features section adjustment for smaller screens */
+@media (max-width: 768px) {
+  .about-section, .features-section {
+    padding: 32px 10%;
+  }
+
+  .about-container, .features-container {
+    max-width: 100%;
+    padding: 0 15px;
+  }
+
+  .about-heading, .features-heading {
+    font-size: 24px;
+  }
+
+  .about-text, .features-text {
+    font-size: 16px;
+  }
+
+  .demo1, .demo1-features {
+    width: 100%; /* Full width on smaller screens */
+    height: auto; /* Maintain aspect ratio */
+    margin: 20px 0; /* Spacing above and below the image */
+  }
 }

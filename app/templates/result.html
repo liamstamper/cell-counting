@@ -1,26 +1,68 @@
 <!-- templates/results.html -->
+<!-- templates/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/styles.css">
-    <title>Cell Counter</title>
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <!--<link rel="icon" type="image/x-icon" href="">-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+    <title>CellScope</title>
+
 </head>
 <body>
-    <div class="main-container">
-        <div class="header">
-            Bone Marrow Cell Counter:
-        </div>
-        <div class="content">
-            Number of Objects Detected: {{ results }}  
-        </div>
-        <a class="restart" href="/">Upload another image</a>
-
-
-    </div>
-    
-
-
+    <!--header-->
+    <header class="header-container">
+        <h1><i class="fa-solid fa-globe"></i> <a href="#Get Started">CellScope</a> </h1>
+        <nav class="header-nav">
+            <a href="#About">About</a>
+            <a href="#Features">Features</a>
+        </nav>
+    </header>
+    <main>
+        <!--home-->     
+        <section id="Get Started">
+            <div class="title">Welcome to CellScope</div>
+            <div class="subtitle">To begin please upload a file</div>
+            <div class="results-container">
+                <div class="results-text">Number of Objects Detected: {{ results }}</div>
+                <a class="start-over-link" href="/">Upload another image</a>
+            </div>            
+        </section>
+        <!--about-->
+        <section2 id="About">
+            <section class="about-section">
+                <div class="about-container">
+                    <h2 class="about-heading">About CellScope</h2>
+                    <p class="about-text">
+                        The CellScope application is designed to simplify and automate the process of cell counting from microscopic imagery. Utilizing advanced algorithms, it allows users to quickly upload images and receive accurate cell counts, significantly reducing manual counting error and effort. 
+                    </p>
+                    <p class="about-text">
+                        Continual improvements and updates are made to ensure the highest level of accuracy and user-friendliness. We welcome feedback and suggestions as we strive to make C-Count V1 the standard tool for cell counting in the scientific community.
+                    </p>
+                    <div class="images-container">
+                        <img src="{{ url_for('static', filename='img/contoured_Screenshot 2024-02-20 at 1.56.56 PM (1).png') }}" alt="placeholder" class="demo-images"> 
+                        <img src="{{ url_for('static', filename='img/contoured_Screenshot 2024-02-20 at 1.56.56 PM (1).png') }}" alt="placeholder" class="demo-images">           
+                    </div>
+                </div>
+            </section>
+        </section2>
+        <!--features-->
+        <section id="Features">
+            <section class="features-section">
+                <div class="features-container">
+                    <h2 class="features-heading">Features</h2>
+                    <p class="features-text">
+                        The CellScope application is designed to simplify and automate the process of cell counting from microscopic imagery. Utilizing advanced algorithms, it allows users to quickly upload images and receive accurate cell counts, significantly reducing manual counting error and effort. 
+                    </p>
+                </div>
+            </section>
+        </section>   
+    </main>
 </body>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </html>
+
+
