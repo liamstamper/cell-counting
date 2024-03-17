@@ -9,6 +9,7 @@ header {
   color: #fff;
   padding: 1rem 0;
   text-align: center;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
 }
 .header-container {
   margin: 0 auto;
@@ -145,8 +146,8 @@ section {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin: 50px 100px 50px;
+
 }
 
 .demo-images{
@@ -229,3 +230,4 @@ section {
     margin: 20px 0; /* Spacing above and below the image */
   }
 }
+

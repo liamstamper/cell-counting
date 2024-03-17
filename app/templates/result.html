@@ -28,6 +28,12 @@
             <div class="subtitle">To begin please upload a file</div>
             <div class="results-container">
                 <div class="results-text">Number of Objects Detected: {{ results }}</div>
+                <div class="images-container">
+                    <h3>Original Image:</h3>
+                    <img src="{{ url_for('static', filename=original_img) }}" alt="Original Image"> 
+                    <h3>Image with Contours:</h3>
+                    <img src="{{ url_for('static', filename=contours_img) }}" alt="Contours Image">
+                </div>
                 <a class="start-over-link" href="/">Upload another image</a>
             </div>            
         </section>
@@ -43,8 +49,8 @@
                         Continual improvements and updates are made to ensure the highest level of accuracy and user-friendliness. We welcome feedback and suggestions as we strive to make C-Count V1 the standard tool for cell counting in the scientific community.
                     </p>
                     <div class="images-container">
-                        <img src="{{ url_for('static', filename='img/contoured_Screenshot 2024-02-20 at 1.56.56 PM (1).png') }}" alt="placeholder" class="demo-images"> 
-                        <img src="{{ url_for('static', filename='img/contoured_Screenshot 2024-02-20 at 1.56.56 PM (1).png') }}" alt="placeholder" class="demo-images">           
+                        <img src="{{ url_for('static', filename='img/demo1.png') }}" alt="placeholder" class="demo-images"> 
+                        <img src="{{ url_for('static', filename='img/demo2.png') }}" alt="placeholder" class="demo-images">           
                     </div>
                 </div>
             </section>
@@ -55,7 +61,20 @@
                 <div class="features-container">
                     <h2 class="features-heading">Features</h2>
                     <p class="features-text">
-                        The CellScope application is designed to simplify and automate the process of cell counting from microscopic imagery. Utilizing advanced algorithms, it allows users to quickly upload images and receive accurate cell counts, significantly reducing manual counting error and effort. 
+                        <b>Advanced Cell Counting Algorithms: </b>CellScope leverages state-of-the-art image processing algorithms to provide fast and accurate cell counts from microscopic images. This reduces manual counting errors and saves valuable time for researchers and laboratory technicians.
+                        <br>
+                        <b>User-Friendly Interface:</b> With a focus on simplicity and ease of use, CellScope offers a clean and intuitive interface. Users can upload images with just a few clicks and view their results in an easily understandable format.
+                        <br>
+                        <b>High-Resolution Image Support:</b> CellScope is capable of processing high-resolution images, allowing for detailed analysis and ensuring that no cell goes uncounted.
+                        <br>
+                        <b>Versatile Image Analysis:</b> Whether you’re working with stained samples, fluorescent imaging, or brightfield microscopy, CellScope is designed to adapt to various types of cell images, providing flexibility across different microscopy disciplines.
+                        <br>
+                        <b>Real-Time Processing:</b> Our application processes images in real time, providing instant feedback on cell counts. This immediate response is vital for fast-paced lab environments where time is of the essence.
+                        <br>
+                        <b>Secure Data Handling:</b> We prioritize the confidentiality and security of your data. Uploaded images are processed and then promptly deleted from our servers to ensure privacy and security.
+                        <br>
+                        <b>Continuous Updates and Improvements:</b> CellScope is continually updated to incorporate the latest updates in image recognition and processing.
+                        <br>
                     </p>
                 </div>
             </section>

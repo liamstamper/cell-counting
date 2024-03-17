@@ -21,4 +21,19 @@ document.addEventListener('DOMContentLoaded', function() {
         // Likely you will want to submit the form here
         // Note: The form will automatically be submitted because this button is of type 'submit'
     });
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth'
+      });
+    });
+    });
+    window.addEventListener('scroll', () => {
+        const featuresSection = document.getElementById('Features');
+        if (featuresSection.getBoundingClientRect().top < window.innerHeight) {
+          // Dynamically load content for featuresSection here
+        }
+      });
 });

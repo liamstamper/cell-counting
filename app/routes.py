@@ -15,23 +15,22 @@ def home():
 @app.route('/upload', methods=['POST'])
 def upload():
     
-    # Check if the post request has the file part
     if 'image' not in request.files:
         return 'No file part', 400
     file = request.files['image']
     if file.filename == '':
         return 'No selected file', 400
-    if file:        
-        # Make the filename safe, remove unsupported characters
-        filename=secure_filename(file.filename)
-        # Save the file to the uploads folder
+    if file:
+        filename = secure_filename(file.filename)
         file_path = os.path.join('static', 'uploads', filename)
         file.save(file_path)
-        # Process the image and return results
         
-        results = process_and_count(file_path)
+        results, original_img_path, contours_img_path = process_and_count(file_path)
+        
+        # Prepare for deletion
+        files_to_delete = [file_path, os.path.join('static', contours_img_path)]
 
-        return render_template('result.html', results=results)
+        return render_template('result.html', results=results, original_img=original_img_path, contours_img=contours_img_path)
     
 def process_and_count(image_path):
 
@@ -45,22 +44,28 @@ def process_and_count(image_path):
     # Apply Gaussian blur to reduce noise and improve thresholding
     blur = cv2.GaussianBlur(gray_image, (5, 5), 0)
 
-     # Apply adaptive thresholding to get a binary image
-    thresh = cv2.adaptiveThreshold(blur, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 11, 2)
+    # Adaptive thresholding
+    thresh = cv2.adaptiveThreshold(blur, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+                                   cv2.THRESH_BINARY_INV, 11, 2)
 
-    # Find contours from the binary image
+    # Find contours
     contours, hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     
-    # Filter out very small contours that are likely not cells
+    # Filter contours
     filtered_contours = [cnt for cnt in contours if cv2.contourArea(cnt) > 50]
 
-    # Draw contours on the original image (optional)
-    # cv2.drawContours(image, contours, -1, (0, 255, 0), 2)
+    # Draw contours on a copy of the original image
+    contours_image = image.copy()
+    cv2.drawContours(contours_image, filtered_contours, -1, (0, 255, 0), 3)
 
-    # Count the number of cells
+    # Save the contours image
+    contours_image_path = image_path.replace('.jpg', '_contours.jpg')
+    cv2.imwrite(contours_image_path, contours_image)
+
+    # Count the cells
     cell_count = len(filtered_contours)
 
-    return cell_count
+    return cell_count, image_path, contours_image_path.replace('static/', '')
 
 if __name__ == "__main__":
     image_path = "cells_image.jpg"  # Path to your image
